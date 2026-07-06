@@ -1,6 +1,6 @@
-name: ComqCatchTail
-version: '1.0'
-main: org.nobird.comqCatchTail.ComqCatchTail
+name: KomqCatchTail
+version: '${version}'
+main: org.nobird.komqCatchTail.KomqCatchTail
 api-version: '1.21'
 commands:
   start-game:

@@ -1,0 +1,54 @@
+plugins {
+        id 'java'
+        // 개발 중 로컬 서버 테스트 및 디버깅을 극대화하는 최신 Paper 개발용 플러그인
+        id 'xyz.jpenilla.run-paper' version '2.3.1'
+        }
+
+        group = 'org.nobird'
+        version = '1.0'
+
+        repositories {
+        mavenCentral()
+        // Paper API 공식 저장소 (기존 papermc-repo 대체)
+        maven { url = "https://repo.papermc.io/repository/maven-public/" }
+        // 기타 오픈소스 라이브러리 저장소 (기존 sonatype 대체)
+        maven { url = "https://oss.sonatype.org/content/groups/public/" }
+        }
+
+        dependencies {
+        // Paper API 1.21 버전에 맞춘 의존성 설정 (컴파일 타임에만 제공)
+        compileOnly 'io.papermc.paper:paper-api:1.21-R0.1-SNAPSHOT'
+        }
+
+        def targetJavaVersion = 21
+        java {
+        def version = JavaVersion.toVersion(targetJavaVersion)
+        sourceCompatibility = version
+        targetCompatibility = version
+        if (JavaVersion.current() < version) {
+        toolchain.languageVersion = JavaLanguageVersion.of(targetJavaVersion)
+        }
+        }
+
+        tasks.withType(JavaCompile).configureEach {
+        options.encoding = 'UTF-8' // 한글 깨짐 및 인코딩 오류 방지
+
+        if (targetJavaVersion >= 10 || JavaVersion.current().isJava10Compatible()) {
+        options.release.set(targetJavaVersion)
+        }
+        }
+
+        // 빌드 시 리소스 필터링 처리 (plugin.yml 내 변수 치환용)
+        processResources {
+        def props = [version: version]
+        inputs.properties props
+        filteringCharset 'UTF-8'
+        filesNotMatching('plugin.yml') {
+        expand props
+        }
+        }
+
+        // 빌드 결과물 이름을 기존 Maven 표준 규격에 맞춤
+        jar {
+        archiveFileName = "${project.name}-${project.version}.jar"
+        }
