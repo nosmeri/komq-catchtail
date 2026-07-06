@@ -1,0 +1,9 @@
+name: ComqCatchTail
+version: '${version}'
+main: org.nobird.comqCatchTail.ComqCatchTail
+api-version: '1.21'
+commands:
+  start-game:
+    description: 게임 시작
+  teams:
+  st:
