@@ -1,0 +1,36 @@
+# =========================================================================
+# ComqCatchTail (Minecraft Paper Plugin Dev) - Standard .gitignore
+# =========================================================================
+
+# 1. 컴파일 및 빌드 결과물 (Java & Gradle)
+build/
+.gradle/
+out/
+bin/
+*.jar
+*.war
+
+# 2. IntelliJ IDEA 프로젝트 설정 파일
+# (협업 시 공유되어야 하는 최소 설정 외에 로컬 캐시 및 개인 설정 격리)
+.idea/workspace.xml
+.idea/tasks.xml
+.idea/usage.statistics.xml
+.idea/dictionaries
+.idea/shelf/
+.idea/dataSources/
+.idea/dataSources.local.xml
+.idea/copilot/
+
+# 3. 사용자 환경에 따라 자동 생성되는 파일 및 캐시
+*.iml
+*.ipr
+*.iws
+
+# 4. xyz.jpenilla.run-paper 플러그인이 생성하는 로컬 서버 인프라 (매우 중요)
+# (테스트용 마인크래프트 서버 런타임 환경 전체를 무시하여 용량 낭비 및 충돌 방지)
+run/
+.run/
+
+# 5. OS 및 시스템 잔재 파일
+.DS_Store
+Thumbs.db
