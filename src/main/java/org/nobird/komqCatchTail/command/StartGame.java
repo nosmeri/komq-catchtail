@@ -14,6 +14,7 @@ import org.bukkit.scoreboard.Scoreboard;
 import org.bukkit.scoreboard.Team;
 import org.jetbrains.annotations.NotNull;
 import org.nobird.komqCatchTail.Color;
+import org.nobird.komqCatchTail.GameStateManager;
 import org.nobird.komqCatchTail.KomqCatchTail;
 
 import java.util.*;
@@ -116,5 +117,6 @@ public class StartGame implements CommandExecutor {
         }
 
         KomqCatchTail.isGameStarted = true;
+        GameStateManager.save();
     }
 }

@@ -9,6 +9,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.scoreboard.Scoreboard;
 import org.jetbrains.annotations.NotNull;
 import org.nobird.komqCatchTail.Color;
+import org.nobird.komqCatchTail.GameStateManager;
 import org.nobird.komqCatchTail.KomqCatchTail;
 
 import java.util.ArrayList;
@@ -52,6 +53,9 @@ public class Team implements CommandExecutor {
         org.bukkit.scoreboard.Team sbTeam = scoreboard.getTeam(teamName);
         if (sbTeam == null) sbTeam = scoreboard.registerNewTeam(teamName);
         sbTeam.addEntry(player.getName());
+
+        // 팀 변경 시 즉시 저장
+        GameStateManager.save();
 
         player.sendMessage(ChatColor.GREEN + color.getLabel() + " 팀에 참가했습니다.");
         return true;

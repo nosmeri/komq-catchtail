@@ -13,6 +13,7 @@ import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.nobird.komqCatchTail.Color;
+import org.nobird.komqCatchTail.GameStateManager;
 import org.nobird.komqCatchTail.KomqCatchTail;
 
 import java.util.ArrayList;
@@ -111,6 +112,9 @@ public class DeathEvent implements Listener {
         attackerTeam.addAll(deadTeam);
         KomqCatchTail.players.put(attackerColor, attackerTeam);
         KomqCatchTail.players.remove(deadColor);
+
+        // 팀 구조 변경 즉시 저장
+        GameStateManager.save();
     }
 
     /**
@@ -121,11 +125,16 @@ public class DeathEvent implements Listener {
         dead.sendMessage("사망하여 30초 뒤에 부활합니다.");
         KomqCatchTail.isPlayerRespawning.put(dead.getName(), true);
 
+        // 리스폰 대기 상태 저장
+        GameStateManager.save();
+
         new BukkitRunnable() {
             @Override
             public void run() {
                 KomqCatchTail.isPlayerRespawning.put(dead.getName(), false);
                 dead.sendMessage("리스폰!!");
+                // 리스폰 완료 후 저장
+                GameStateManager.save();
             }
         }.runTaskLater(KomqCatchTail.getInstance(), 20L * 30);
     }

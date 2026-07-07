@@ -61,6 +61,7 @@ public class Repeat {
                 player.sendTitle(winnerColor.getColor() + winnerName + "님이 우승하셨습니다.", "");
             }
             KomqCatchTail.isGameStarted = false;
+            GameStateManager.clear(); // 게임 종료 → 저장 파일 삭제
             return;
         }
 
